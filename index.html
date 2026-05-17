@@ -2,15 +2,122 @@
 <html>
 <head lang="uk">
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Page</title>
-
-
     <link rel="stylesheet" type="text/css" href="main.css" />
 </head>
 <body>
-	<span class="product-item">
-		Apple
-		<span class="amount">4</span>
-	</span>
+
+    <div class="layout">
+
+    <!-- ліва колонка -->
+    <main class="main-column">
+        <div class="card combined-panel">
+
+            <!-- додавання -->
+            <div class="add-item-panel">
+                <input type="text" id="itemName" placeholder="Назва товару" class="input-field">
+                <button class="btn-add" data-tooltip="Додати товар у список">Додати</button>
+            </div>
+            
+            <!-- список продуктів -->
+            <div class="list-panel">
+
+                <!-- Помідори (куплено) -->
+                <div class="row">
+                    <div class="item-name-zone"><span class="name bought">Помідори</span></div>
+                    <div class="item-count-zone"><span class="num-box">2</span></div>
+                    <div class="item-status-zone">
+                        <button class="btn-status grey" data-tooltip="Повернути у список">Не куплено</button>
+                    </div>
+                </div>
+
+                <!-- Печиво (не куплено) -->
+                <div class="row">
+                    <div class="item-name-zone"><span class="name">Печиво</span></div>
+                    <div class="item-count-zone">
+                        <!-- зменшення к-сті -->
+                        <button class="btn-circle minus" data-tooltip="Зменшити">−</button>
+                        <span class="num-box">2</span>
+                        <!-- збільшення к-сті -->
+                        <button class="btn-circle plus" data-tooltip="Збільшити">+</button>
+                    </div>
+
+                    <div class="item-status-zone">
+                        <!-- позначити як куплене -->
+                        <button class="btn-status shadow-btn" data-tooltip="Позначити як куплене">Куплено</button>
+                        <!-- видалити товар -->
+                        <button class="btn-del shadow-btn" data-tooltip="Видалити товар">
+                            <span class="icon">×</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Сир (в пошуку) -->
+                <div class="row">
+                    <div class="item-name-zone"><input type="text" value="Сир" class="edit-input"></div>
+                    <div class="item-count-zone">
+                        <!-- зменшення к-сті -->
+                        <button class="btn-circle minus light" data-tooltip="Зменшити">−</button>
+                        <span class="num-box">1</span>
+                        <!-- збільшення к-сті -->
+                        <button class="btn-circle plus" data-tooltip="Збільшити">+</button>
+                    </div>
+                    <div class="item-status-zone">
+                        <!-- позначити як куплене -->
+                        <button class="btn-status shadow-btn" data-tooltip="Позначити як куплене">Куплено</button>
+                        <!-- видалити товар -->
+                        <button class="btn-del shadow-btn" data-tooltip="Видалити товар">
+                            <span class="icon">×</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- права колонка -->
+    <aside class="stats-column">
+        <!-- статистика -->
+        <div class="card stats-card">
+            
+            <!-- список не куплених товарів -->
+            <h3 class="stats-header">Залишилося</h3>
+            <div class="tags-container">
+                <!-- ще не куплені товари -->
+                <div class="product-item">Печиво <span class="amount">2</span></div>
+                <div class="product-item">Сир <span class="amount">1</span></div>
+            </div>
+            
+            <!-- горизонтальна лінія -->
+            <hr class="stats-divider">
+
+            <!-- куплені товари -->
+            <h3 class="stats-header">Куплено</h3>
+            <div class="tags-container">
+                <!-- куплені товари -->
+                <div class="product-item bought-tag">Помідори <span class="amount">2</span></div>
+            </div>
+
+        </div>
+    </aside>
+</div>
+
+    <!-- Бейдж -->
+    <div class="badge-container">
+    <div class="author-badge">
+        <!-- надпис видимої частини бейджа -->
+        <div class="badge-title">Buy List</div>
+        
+        <!-- надпис інформації про автора -->
+        <div class="author-info">
+            <span class="label">Created by:</span>
+            <span class="name">Burdeyna Inna</span>
+        </div>
+
+    </div>
+</div>
+
 </body>
 </html>
