@@ -1,17 +1,416 @@
+/* СТИЛІ */
 .product-item {
-	background-color: gray;
-	display: inline-block;
-	height: 25px;
-	padding: 5px;
-	border-radius: 5px;
+    background-color: rgb(227, 225, 225);
+    display: inline-flex;  /* елемент може бути в рядку з іншими, але при цьому всередині нього можна використовувати flex */
+    align-items: center;   /* вертикальне вирівнювання по центру */
+    padding: 4px 10px;     /* внутрішні відступи: 4px зверху і знизу, 10px зліва і справа */
+    border-radius: 4px;    /* закруглення кутів */
+    margin: 4px;           /* зовнішній відступ */
+    font-size: 13px;
+    font-weight: 600;
+    color: #555555;
 }
 
+/* ПРАВИЙ БЛОК */
 .amount {
-	background-color: yellow;
-	border-radius: 10px;
-	
-	display: inline-block;
-	height: 20px;
-	width: 20px;
-	text-align: center;
+    background-color: #e87b1a; 
+    color: white;
+    border-radius: 50%;     /* робимо круглим */
+    display: inline-block;  /* дозволяємо встановити конкретні розміри */
+    width: 18px;
+    height: 18px;
+    text-align: center;
+    line-height: 18px;      /* вертикальне вирівнювання тексту по центру */
+    font-size: 11px;
+    margin-left: 10px;
+}
+
+/* базові стилі сторінки */
+body { 
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;  /* шрифти */
+    background-color: #d1d1d1; 
+    margin: 0;
+    padding: 20px; 
+}
+
+/* заголовок сторінки */
+.layout { 
+    display: flex; 
+    flex-wrap: wrap;         /* дозвіл переноситись на новий рядок при маленькій ширині */
+    gap: 20px;               /* відстань між блоками */
+    max-width: 1000px;
+    margin: 40px auto 0;     /* центруємо по горизонталі і додаємо відступ зверху */
+    justify-content: center;      /* центруємо гнучкі елементи */
+    align-items: flex-start;      /* вирівнюємо по верхньому краю, щоб при різній висоті блоків вони не розтягувалися по центру */
+}
+
+/* лівий блок */
+.main-column { 
+    flex: 1 1 500px;      /* гнучкий длок з мін шириною 500px */
+    min-width: 480px; 
+}
+
+/* правий блок */
+.stats-column { 
+
+    flex: 1 1 550px;      /* гнучкий блок з мін шириною 550px */
+    min-width: 280px;
+    max-width: 300px; 
+    transition: max-width 0.3s ease;          /* плавний перехід при зміні розміру */
+}
+
+/* перенесення правого боку під лівий блок */
+@media (max-width: 850px) { /* Поріг, коли блоки починають переноситись */
+    .stats-column {
+        max-width: 100%; /* правий блок розтягується на всю ширину */
+    }
+}
+
+/* адаптивність для мобільних пристроїв */
+@media (max-width: 500px) {
+    .layout { 
+        flex-direction: column;      /* розташовуємо блоки один під одним */
+        align-items: center;         /* центруємо по горизонталі */
+    }
+    .main-column, .stats-column { 
+        width: 100%; 
+        min-width: 0; 
+    }
+}
+
+/* налаштування правого блоку */
+.stats-card { 
+    padding: 20px !important; 
+    height: 100%;
+    box-sizing: border-box;       /* враховуємо падінги у висоту, щоб блок не виходив за межі */
+}
+
+/* стилі правого блоку */
+.tags-container { 
+    display: flex; 
+    flex-wrap: wrap;        /* дозволяємо тегам переноситись на новий рядок при маленькій ширині */
+    gap: 8px;               /* відстань між тегами */
+}
+
+/* заголовок правого блоку */
+.stats-header { 
+    margin: 0 0 15px 0; 
+    font-size: 21px; 
+    font-weight: 800; 
+    color: #1a1a1a; 
+}
+
+/* роздільник між Залишилося і Куплено */
+.stats-divider { 
+    border: 0; 
+    border-top: 1px solid #505050; 
+    margin: 15px 0; 
+}
+
+/* картки */
+.card { 
+    background: white; 
+    border-radius: 4px;               /* закруглення кутів */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.253); 
+    overflow: visible !important;     /* дозволяємо елементам виходити за межі картки */
+    position: relative;
+    z-index: 1;
+}
+
+
+/* ЛІВИЙ БЛОК */
+.combined-panel { 
+    border: 1px solid #bbb;         /* рамка для всієї панелі */
+}
+
+/* панель додавання товару */
+.add-item-panel { 
+    display: flex;                    /* розташовуємо поле вводу і кнопку в ряд */
+    padding: 15px 20px; 
+    border-bottom: 1px solid #eee;  /* роздільник між панеллю додавання і списком товарів */
+}
+
+/* поле вводу */
+.input-field { 
+    flex: 1;                          /* поле вводу займає весь доступний простір, крім кнопки */
+    padding: 10px; 
+    border: 1px solid #ccc;         /* легка рамка для поля вводу */
+    border-radius: 4px 0 0 4px;       /* закруглення тільки зліва */
+    font-size: 15px;
+    outline: none;                    /* прибираємо стандартну обводку при фокусі */
+}
+
+/* кнопка додавання */
+.btn-add { 
+    background: #4a90e2; 
+    color: white; 
+    border: none; 
+    padding: 0 25px; 
+    border-radius: 0 4px 4px 0;        /* закруглення тільки справа */
+    font-weight: bold; 
+    font-size: 16px;
+}
+
+/* список товарів */
+.row { 
+    display: flex; 
+    align-items: center; 
+    padding: 16px 20px; 
+    border-bottom: 1px solid #f2f2f2; 
+}
+
+/* Зона для назви товару */
+.item-name-zone { 
+    flex: 0 0 40%;              /* ширина зони назви (40%) */
+    font-size: 17px; 
+}
+
+/* Зони для кількості і кнопок статусу */
+.item-count-zone { 
+    flex: 0 0 25%;              /* ширина зони кількості (25%) */
+    display: flex; 
+    justify-content: center;    /* центруємо вміст всередині цих 25% */
+    align-items: center; 
+    gap: 10px; 
+}
+
+/* Зона для кнопок статусу */
+.item-status-zone { 
+    flex: 1;                     /* права частина йде кнопкам статусу */
+    display: flex; 
+    justify-content: flex-end;   /* вирівнюємо кнопки по правому краю */
+    gap: 8px;                    /* відстань між кнопками статусу */
+}
+
+/* Кнопки та кількість товару */
+.btn-circle { 
+    width: 32px; height: 32px; 
+    border-radius: 50%;           /* кругла форма */
+    border: none; 
+    color: white; 
+    font-weight: bold; 
+    font-size: 18px;
+}
+.minus { background: #db4437; }
+.plus { background: #4caf50; }
+.minus.light { opacity: 0.4; }     /* зменшена непрозорість для неактивної кнопки */
+
+/* кількість товару */
+.num-box { 
+    background: #e8e8e8; 
+    padding: 6px 14px; 
+    border-radius: 4px; 
+    font-weight: bold; 
+    min-width: 22px; 
+    text-align: center; 
+}
+
+/* кнопки статусу */
+.btn-status { 
+    background: #fcfcfc; 
+    border: 1px solid #ddd; 
+    padding: 8px 15px; 
+    border-radius: 4px; 
+    font-size: 13px; 
+}
+
+/* різні кольори для статусів */
+.btn-status.grey { 
+    background: #f0f0f0; 
+    color: #666; 
+}
+
+/* кнопка видалення */
+.btn-del {
+    background-color: #db4437;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 13px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;              /* відступ між хрестиком і словом */
+}
+
+/* хрестик */
+.btn-del .icon {
+    font-size: 18px;
+    line-height: 1;
+}
+
+
+/* БЕЙДЖ */
+.badge-container {
+    position: fixed;
+    bottom: 0; 
+    left: 20px;
+    z-index: 10000;        /* бейдж поверх інших елементів */
+    overflow: visible;
+}
+
+/* початковий стан бейджа */
+.author-badge {
+    background-color: #ba00e5;
+    color: white;
+    padding: 15px 15px 80px 15px; 
+    border-radius: 20px 20px 0 0 !important;
+    text-align: center;
+    min-width: 140px;
+    transform: translateY(120px);          /* початково ховаємо бейдж за межами екрана */
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);          /* плавний перехід */
+}
+
+/* виїзд бейджу */
+.author-badge:hover,
+body:has(.input-field:not(:placeholder-shown)) .author-badge {
+    transform: translateY(70px) !important;           /* виїжджає вгору при наведенні або при введенні тексту */
+    background-color: #6200ea;
+}
+
+/* стан введення тексту */
+body:has(.input-field:not(:placeholder-shown)) .author-badge {
+    background-color: white !important;
+    color: #ba00e5 !important;
+    border: 2px solid #ba00e5 !important;
+    border-bottom: none !important;
+}
+
+/* інформація про автора */
+.author-info {
+    font-weight: normal;
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    line-height: 1;
+    text-align: left; 
+    padding-left: 15px; 
+    margin-top: 15px;
+}
+
+/* ім'я автора */
+.author-info .name {
+    display: block;
+    font-size: 18px; 
+}
+
+/* заголовок бейджа */
+.badge-title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    display: block;
+}
+
+/* інформація при наведенні */
+.author-badge:hover .author-info {
+    opacity: 1;
+}
+
+/* реакція бейджа на введення тексту */
+body:has(.input-field:not(:placeholder-shown)) .author-badge {
+    background-color: white !important;
+    color: #ba00e5 !important;
+    border: 2px solid #ba00e5 !important;
+    transform: translateY(0);
+}
+
+/* при введенні міняємо BuyList на Ім'я */
+body:has(.input-field:not(:placeholder-shown)) .badge-title {
+    display: none; 
+}
+
+/* інформація про автора при введенні тексту */
+body:has(.input-field:not(:placeholder-shown)) .author-info {
+    display: block;
+    opacity: 1;
+    margin-top: 0;
+}
+
+
+/* ДРУК ТЕКСТУ */
+@media print {
+    .badge-container {
+        position: static;
+        margin-top: 30px;
+    }
+
+    .author-badge {
+        transform: none !important;
+        background-color: white !important;
+        border: 2px solid #ba00e5 !important;
+        padding: 5px 10px;
+        width: fit-content;
+        border-radius: 8px;
+        box-shadow: none;
+    }
+
+    .badge-title {
+        display: none !important;
+    }
+
+    .author-info {
+        display: block !important;
+        opacity: 1 !important;
+        margin-top: 0;
+        text-decoration: underline;
+    }
+}
+
+
+/* TOOLTIP */
+/* базові стилі для елементів з підказками */
+[data-tooltip] { 
+    position: relative;         /* позиціонування підказки */
+}
+
+/* стилі для підказки */
+[data-tooltip]::after {
+    content: attr(data-tooltip);    /* текст підказки з data-tooltip */
+    position: absolute;
+    bottom: 130%;                /* над кнопкою */
+    left: 50%;
+    transform: translateX(-50%) translateY(10px) scale(0.8);            /* початково зменшуємо і зміщуємо вниз */
+    background-color: #9400D3;
+    color: white;
+    padding: 7px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 100000 !important;             /* на передній план */
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);       /* плавний перехід */
+}
+
+/* показ підказки при наведенні */
+[data-tooltip]:hover::after {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0) scale(1);
+}
+
+
+
+/* стиль для куплених товарів */
+.bought-tag { 
+    text-decoration: line-through; 
+    opacity: 0.5; 
+}
+
+/* стиль для назви куплених товарів */
+.name.bought { 
+    text-decoration: line-through; 
+    color: #888; 
+}
+
+/* стиль для неактивної кнопки "-" */
+.edit-input { border: 1px solid #4a90e2; 
+    padding: 6px; 
+    width: 85%; 
+    border-radius: 3px; 
+    outline: none; 
 }
